@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import io
+import base64
 import re
 import unicodedata
 import tempfile
@@ -134,9 +135,27 @@ def scaled_image(filename, maximum_width, maximum_height):
 
 
 def image_centered(path, maximum_width, maximum_height):
-    left, middle, right = st.columns([1, 2, 1])
-    with middle:
-        return scaled_image(path, maximum_width, maximum_height)
+    """Center a local image across the full page without stretching it."""
+    file = ROOT / path
+    if not file.is_file():
+        return False
+    try:
+        with Image.open(file) as opened:
+            picture = opened.copy()
+        picture.thumbnail((maximum_width, maximum_height), Image.Resampling.LANCZOS)
+        image_bytes = io.BytesIO()
+        picture.convert('RGBA').save(image_bytes, format='PNG')
+        encoded = base64.b64encode(image_bytes.getvalue()).decode('ascii')
+        st.markdown(
+            '<div class="centered-asset">'
+            f'<img src="data:image/png;base64,{encoded}" '
+            f'width="{picture.width}" height="{picture.height}" alt="" />'
+            '</div>',
+            unsafe_allow_html=True,
+        )
+        return True
+    except (OSError, ValueError):
+        return False
 
 
 def pretty_value(value):
@@ -172,6 +191,16 @@ def render_member(record, role):
 st.set_page_config(page_title='Pokémon GO PvP Team Builder', page_icon='⚔️', layout='wide')
 st.markdown("""
 <style>
+/* Force a true-black canvas regardless of Streamlit's active browser theme. */
+html, body, [data-testid="stAppViewContainer"], .stApp, [data-testid="stApp"] {
+    background-color: #000000 !important;
+}
+[data-testid="stHeader"] { background-color: #000000 !important; }
+.centered-asset {
+    width: 100%; display: flex; justify-content: center; align-items: center;
+    margin: 0 auto 1.2rem;
+}
+.centered-asset img { display: block; max-width: 100%; height: auto; object-fit: contain; }
 :root { --pokedex-red:#E84646; --pokedex-yellow:#F7C948; --pokedex-blue:#58B8E8; --pokedex-green:#77C9A4; }
 .block-container { max-width: 1300px; padding-top: 2rem; }
 h1,h2,h3 { letter-spacing: -.02em; }
