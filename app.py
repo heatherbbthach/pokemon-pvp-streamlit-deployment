@@ -79,6 +79,7 @@ genie_file = st.file_uploader('Upload your Poké Genie collection CSV', type=['c
                               help='Export your scanned collection from Poké Genie as CSV.')
 
 st.header('2 · PvPoke rankings')
+st.caption('This tool automatically checks against PvPoke CSV exports from 10/15/2026. If you wish to use more recent exports, please upload them.')
 default = default_data()
 if default:
     existing = find_files(default)
@@ -86,12 +87,12 @@ if default:
 else:
     existing = {}
     st.info('No bundled rankings found. Please upload PvPoke ranking CSVs below.')
-st.caption('New uploads override matching bundled categories **for this analysis only**. Other bundled categories remain available. Nothing is changed in your repository.')
+st.caption('New uploads override matching bundled categories **for this analysis only**..')
 replace = st.file_uploader('Optional: upload newer PvPoke CSVs (multiple allowed)',
                             type=['csv'], accept_multiple_files=True, key='pvpoke')
 
 st.header('3 · Team-building priorities')
-st.caption('These are relative importance values, not probabilities. They will be normalized automatically to total 100%.')
+st.caption('Please select the how important each of the following are to you for your team composition. They will be normalized automatically to total 100%.')
 c1,c2 = st.columns(2)
 with c1:
     performance = st.slider('Competitive performance',0,100,40,5)
