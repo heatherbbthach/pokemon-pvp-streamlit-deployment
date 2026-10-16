@@ -83,7 +83,7 @@ st.caption('This tool automatically checks against PvPoke CSV exports from 10/15
 default = default_data()
 if default:
     existing = find_files(default)
-    st.success(f'Found {len(existing)} bundled league/category rankings in `{default.relative_to(ROOT)}`.')
+    st.success(f'Found {len(existing)} bundled league/category rankings. Upload your own if you would like to use more recent rankings.')
 else:
     existing = {}
     st.info('No bundled rankings found. Please upload PvPoke ranking CSVs below.')
