@@ -1,4 +1,4 @@
-# Pokémon GO PvP Team Builder
+# BattleDex
 
 A web-based tool that helps Pokémon GO players build competitive Great League and Ultra League teams using Pokémon they already own.
 
