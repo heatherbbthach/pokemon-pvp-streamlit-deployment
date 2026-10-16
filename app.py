@@ -188,7 +188,7 @@ def render_member(record, role):
             st.caption(f'Owned as: {original}')
 
 
-st.set_page_config(page_title='Pokémon GO PvP Team Builder', page_icon='⚔️', layout='wide')
+st.set_page_config(page_title='BattleDex', page_icon='⚔️', layout='wide')
 st.markdown("""
 <style>
 /* Force a true-black canvas regardless of Streamlit's active browser theme. */
@@ -224,7 +224,7 @@ h2 { color: #58B8E8 !important; padding-top: .7rem; }
 """, unsafe_allow_html=True)
 
 image_centered('assets/logo.jpg', 350, 450)
-st.title('⚔️ Pokémon GO PvP Team Builder')
+st.title('BattleDex')
 st.write('Find your best competitive Pokémon and build complementary teams using **your collection**, PvPoke rankings, and your priorities. All calculations run in this app session.')
 
 st.header('1 · Your Poké Genie export')
@@ -296,10 +296,10 @@ if 'reports' in st.session_state:
             selected = teams[teams['League']==league]
             league_name = str(league).lower()
             if '1500' in league_name or 'great' in league_name:
-                image_centered('assets/greatleague.jpg', 275, 200)
+                image_centered('assets/greatleague.jpg', 350, 450)
                 st.subheader('Great League Teams')
             elif '2500' in league_name or 'ultra' in league_name:
-                image_centered('assets/ultraleague.jpg', 275, 200)
+                image_centered('assets/ultraleague.jpg', 350, 450)
                 st.subheader('Ultra League Teams')
             for index, (_, team) in enumerate(selected.iterrows(), start=1):
                 with st.container(border=True):
