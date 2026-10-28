@@ -232,7 +232,7 @@ genie_file = st.file_uploader('Upload your Poké Genie collection CSV', type=['c
                               help='Export your scanned collection from Poké Genie as CSV.')
 
 st.header('2 · PvPoke rankings')
-st.caption('This tool automatically checks against PvPoke CSV exports from 10/15/2026. If you wish to use more recent exports, please upload them.')
+st.caption('This tool automatically checks against PvPoke CSV exports from 10/28/2026. If you wish to use more recent exports, please upload them.')
 default = default_data()
 if default:
     existing = find_files(default)
